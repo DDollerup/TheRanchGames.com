@@ -1,0 +1,94 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Admin.master.cs" Inherits="Admin_Admin" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title></title>
+    <link href="../CSS/Admin.css" rel="stylesheet" />
+    <link href="../CSS/DropDownMenu.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <div id="ContentWrapper">
+        <form id="form1" runat="server">
+            <div id="NavWrapper">
+                <div class="Padding100LR">
+                    <div id="UserLoginWrapper">
+                        <div style="float: left;">
+                            <asp:Label ID="lblUser" runat="server" Text=""></asp:Label>
+                        </div>
+                        <div style="float: right;">
+                            <asp:LinkButton ID="lbtnLogout" runat="server" OnClick="lbtnLogout_Click">Logout</asp:LinkButton>
+                        </div>
+                    </div>
+                    <asp:PlaceHolder ID="phAdmin" runat="server">
+                        <nav>
+                            <ul>
+                                <li><a href="Default.aspx">Welcome</a></li>
+                                <li><a href="#">Home</a>
+                                    <ul>
+                                        <li><a href="Home.aspx">Edit Home</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="#">News</a>
+                                    <ul>
+                                        <li><a href="News.aspx">Edit News</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="#">Team</a>
+                                    <ul>
+                                        <li><a href="Team.aspx">Edit Team</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <a href="#">Facility</a>
+                                    <ul>
+                                        <li><a href="Facility.aspx">Edit Facility</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="#">Companies</a>
+                                    <ul>
+                                        <li><a href="Company.aspx">Edit Companies</a></li>
+                                    </ul>
+                                </li>
+                                <li><a href="#">Sponsor</a>
+                                    <ul>
+                                        <li><a href="Sponsor.aspx">Edit Sponsors</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </nav>
+
+
+                    </asp:PlaceHolder>
+                    <asp:PlaceHolder ID="phUser" runat="server">
+                        <nav>
+                            <ul>
+                                <li><a href="Default.aspx">Welcome</a></li>
+                                <li><a href="#">Company</a>
+                                    <ul>
+                                        <li><asp:LinkButton ID="lbtnCompany" runat="server"></asp:LinkButton></li>
+                                    </ul>
+                                </li>
+                                <li><a href="#">Product</a>
+                                    <ul>
+                                        <li><a href="Product.aspx">Edit Product</a></li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </nav>
+                    </asp:PlaceHolder>
+                </div>
+            </div>
+            <div class="Padding100LR" id="ContentPlaceholderWrapper">
+                <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                </asp:ContentPlaceHolder>
+            </div>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,152 @@
+﻿@font-face {
+    font-family: 'steelfish rg';
+    src: url('../Fonts/Steelfish/steelfish rg.ttf') format('truetype'), url('../Fonts/Steelfish/steelfish outline.ttf') format('truetype'), url('../Fonts/Steelfish/steelfish rg it.ttf') format('truetype');
+}
+
+body {
+    background-image: url('../Images/Layout/bg.png');
+    background-attachment: fixed;
+    font-family: 'steelfish rg';
+    font-size: xx-large;
+    color: white;
+    margin: 0;
+}
+
+#ContentWrapper {
+    width: 100%;
+    height: 100%;
+}
+
+.Padding100LR {
+    padding-left: 100px;
+    padding-right: 100px;
+}
+
+#UserLoginWrapper {
+    float: left;
+    width: 100%;
+    height: 35px;
+    font-size: 18px;
+}
+
+#NavWrapper {
+    width: 100%;
+    height: 135px;
+}
+
+#ContentPlaceholderWrapper {
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+/*nav {
+    vertical-align: middle;
+    line-height: 100px;
+    width: 100%;
+    height: 100px;
+    float: left;
+}*/
+
+a {
+    color: white;
+    text-decoration: none;
+}
+
+h1 {
+    margin: 0;
+}
+
+#AdminWrapper {
+    padding-left: 100px;
+    padding-right: 100px;
+}
+
+.adminInputSpan {
+    font-size: 22px;
+}
+
+li, ul {
+    margin: 0;
+    border: 0;
+    padding: 0;
+}
+
+
+nav {
+    margin: 0;
+}
+
+    nav ul ul {
+        display: none;
+    }
+
+    nav ul li:hover > ul {
+        display: block;
+        min-width: 75px;
+    }
+
+
+    nav ul {
+        list-style: none;
+        position: relative;
+        display: inline-table;
+    }
+
+        nav ul:after {
+            content: "";
+            clear: both;
+            display: block;
+        }
+
+        nav ul li {
+            float: left;
+            text-align: center;
+        }
+
+            nav ul li:hover {
+                background: #4b545f;
+                background: linear-gradient(top, #4f5964 0%, #5f6975 40%);
+                background: -moz-linear-gradient(top, #4f5964 0%, #5f6975 40%);
+                background: -webkit-linear-gradient(top, #4f5964 0%,#5f6975 40%);
+            }
+
+                nav ul li:hover a {
+                    color: #fff;
+                }
+
+            nav ul li a {
+                display: block;
+                padding: 25px 40px;
+                color: #757575;
+                text-decoration: none;
+            }
+
+
+        nav ul ul {
+            background: #5f6975;
+            padding: 0;
+            position: absolute;
+            top: 100%;
+        }
+
+            nav ul ul li {
+                float: none;
+                border-top: 1px solid #6b727c;
+                border-bottom: 1px solid #575f6a;
+                position: relative;
+            }
+
+                nav ul ul li a {
+                    padding: 15px 40px;
+                    color: #fff;
+                }
+
+                    nav ul ul li a:hover {
+                        background: #4b545f;
+                    }
+
+            nav ul ul ul {
+                position: absolute;
+                left: 100%;
+                top: 0;
+            }

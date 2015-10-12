@@ -1,0 +1,39 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Admin.master.cs" Inherits="Admin2_Admin" %>
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <link href="Admin.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <link href="TextEditor/jquery.cleditor.css" rel="stylesheet" />
+    <script src="TextEditor/jquery.cleditor.js"></script>
+    <title></title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div style="width: 90%; margin-left: auto; margin-right: auto;">
+            <table style="width: 100%; border-spacing: 0;">
+                <tr>
+                    <td colspan="2" style="height: 100px; background-color: #BADA55; padding-left: 5px; padding-top: 5px;">
+                        <h1>Admin - The Ranch Games</h1>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 10%; height: 80vh; background-color: #BADA55; padding-left: 5px; padding-top: 5px; vertical-align: top;">
+                        <a href="default.aspx">Welcome</a><br />
+                        <a href="home.aspx">Edit Home</a><br />
+                        <a href="#">content</a>
+                    </td>
+                    <td style="width: 90%; height: 80vh; padding-left: 5px; padding-top: 5px; vertical-align: top;">
+                        <asp:ContentPlaceHolder ID="Content" runat="server">
+                        </asp:ContentPlaceHolder>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </form>
+</body>
+</html>
