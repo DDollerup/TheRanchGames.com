@@ -29,7 +29,6 @@ public partial class Admin_Company : System.Web.UI.Page
                 imgLogo.ImageUrl = string.Format(@"~/Images/Company/{0}/{1}", c.CompanyName, c.CompanyImageURL);
                 imgBanner.ImageUrl = string.Format(@"~/Images/Company/{0}/{1}", c.CompanyName, c.CompanyImageBannerURL);
                 txbDescription.Text = c.CompanyDescription;
-                txbContact.Text = c.CompanyContact;
                 txbWebsite.Text = c.CompanyWebsite;
                 txbEmail.Text = c.CompanyContactEmail;
                 cbxAcceptWork.Checked = c.CompanyAcceptWork;
@@ -76,7 +75,6 @@ public partial class Admin_Company : System.Web.UI.Page
 
         newCompany.CompanyName = txbCompanyName.Text;
         newCompany.CompanyDescription = txbDescription.Text;
-        newCompany.CompanyContact = txbContact.Text;
         newCompany.CompanyWebsite = txbWebsite.Text;
         newCompany.CompanyContactEmail = txbEmail.Text;
         newCompany.CompanyAcceptWork = cbxAcceptWork.Checked;
@@ -135,7 +133,6 @@ public partial class Admin_Company : System.Web.UI.Page
         }
 
         c.CompanyDescription = txbDescription.Text;
-        c.CompanyContact = txbContact.Text;
         c.CompanyWebsite = txbWebsite.Text;
         c.CompanyContactEmail = txbEmail.Text;
         c.CompanyAcceptWork = cbxAcceptWork.Checked;
