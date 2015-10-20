@@ -48,7 +48,7 @@ public partial class Admin2_Company : System.Web.UI.Page
         Uploader uploader = new Uploader();
 
         comp.CompanyName = txbName.Text;
-        if (fupLogo.PostedFile.ContentLength != 0)
+        if (fupLogo.PostedFile.ContentLength > 0)
         {
             comp.CompanyImageURL = uploader.UploadImage(fupLogo.PostedFile,
                                                         MapPath("~") + @"Images\Company\" +
@@ -56,7 +56,7 @@ public partial class Admin2_Company : System.Web.UI.Page
                                                         250,
                                                         false);
         }
-        if (fupBanner.PostedFile.ContentLength != 0)
+        if (fupBanner.PostedFile.ContentLength > 0)
         {
             comp.CompanyImageBannerURL = uploader.UploadImage(fupBanner.PostedFile,
                                                         MapPath("~") + @"Images\Company\" +

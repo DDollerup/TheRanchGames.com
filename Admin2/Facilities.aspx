@@ -37,9 +37,14 @@
                 <asp:TextBox ID="txbFacText" runat="server" TextMode="MultiLine"></asp:TextBox>
             </td>
         </tr>
-                <tr>
+        <tr>
             <td colspan="2">
                 <asp:TextBox ID="txbAddress" runat="server" TextMode="MultiLine"></asp:TextBox>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <asp:Button ID="btnSave" runat="server" Text="Save" OnClick="btnSave_Click" />
             </td>
         </tr>
     </table>
