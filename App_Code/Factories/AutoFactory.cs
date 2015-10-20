@@ -45,7 +45,7 @@ public class AutoFactory<T> where T : AutoTable
     }
 
     public void Add(T entity)
-        {
+    {
         string insertQuery = string.Format("INSERT INTO {0} (", GetTableName());
 
         for (int i = 1; i < entity.Properties.Count; i++)
@@ -73,7 +73,7 @@ public class AutoFactory<T> where T : AutoTable
 
         for (int i = 0; i < entity.Properties.Count; i++)
         {
-            cmd.Parameters.AddWithValue("@" + entity.Properties[i].Name, entity.Properties[i].GetValue(entity));
+            cmd.Parameters.AddWithValue("@" + entity.Properties[i].Name, entity.Properties[i].GetValue(entity, null));
         }
 
         cmd.ExecuteNonQuery();
@@ -95,7 +95,7 @@ public class AutoFactory<T> where T : AutoTable
             updateQuery += (i + 1 == entity.Properties.Count ? " " : ", ");
         }
 
-        updateQuery += string.Format("WHERE {0}={1}", GetFieldName(entity.Properties[0].Name), entity.Properties[0].GetValue(entity));
+        updateQuery += string.Format("WHERE {0}={1}", GetFieldName(entity.Properties[0].Name), entity.Properties[0].GetValue(entity, null));
 
         SqlConnection connection = new SqlConnection(connectionString);
         connection.Open();
@@ -103,7 +103,7 @@ public class AutoFactory<T> where T : AutoTable
 
         for (int i = 0; i < entity.Properties.Count; i++)
         {
-            cmd.Parameters.AddWithValue("@" + entity.Properties[i].Name, entity.Properties[i].GetValue(entity));
+            cmd.Parameters.AddWithValue("@" + entity.Properties[i].Name, entity.Properties[i].GetValue(entity, null));
         }
 
         cmd.ExecuteNonQuery();
@@ -147,7 +147,7 @@ public class AutoFactory<T> where T : AutoTable
                 for (int i = 0; i < result.Properties.Count; i++)
                 {
                     if (reader[i] == DBNull.Value) continue;
-                    result.Properties[i].SetValue(result, reader[i]);
+                    result.Properties[i].SetValue(result, reader[i], null);
                 }
             }
         }
@@ -177,7 +177,7 @@ public class AutoFactory<T> where T : AutoTable
                 for (int i = 0; i < result.Properties.Count; i++)
                 {
                     if (reader[i] == DBNull.Value) continue;
-                    result.Properties[i].SetValue(result, reader[i]);
+                    result.Properties[i].SetValue(result, reader[i], null);
                 }
             }
         }
@@ -209,7 +209,7 @@ public class AutoFactory<T> where T : AutoTable
                 for (int i = 0; i < entry.Properties.Count; i++)
                 {
                     if (reader[i] == DBNull.Value) continue;
-                    entry.Properties[i].SetValue(entry, reader[i]);
+                    entry.Properties[i].SetValue(entry, reader[i], null);
                 }
                 result.Add(entry);
             }
@@ -240,7 +240,7 @@ public class AutoFactory<T> where T : AutoTable
                 for (int i = 0; i < result.Properties.Count; i++)
                 {
                     if (reader[i] == DBNull.Value) continue;
-                    result.Properties[i].SetValue(result, reader[i]);
+                    result.Properties[i].SetValue(result, reader[i], null);
                 }
             }
         }

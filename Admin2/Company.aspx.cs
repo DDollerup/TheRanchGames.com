@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
+using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 
 public partial class Admin2_Company : System.Web.UI.Page
@@ -44,9 +45,25 @@ public partial class Admin2_Company : System.Web.UI.Page
     protected void btnSave_Click(object sender, EventArgs e)
     {
         this.comp = Session["Company"] as Company;
+        Uploader uploader = new Uploader();
+
         comp.CompanyName = txbName.Text;
-        comp.CompanyImageURL = (FileUploadHelper.UploadFile(fupLogo, MapPath("~"),
-                                FileUploadHelper.UploadTo.Company) == "NoFile" ? comp.CompanyImageURL : "asd");
+        if (fupLogo.PostedFile.ContentLength != 0)
+        {
+            comp.CompanyImageURL = uploader.UploadImage(fupLogo.PostedFile,
+                                                        MapPath("~") + @"Images\Company\" +
+                                                        comp.CompanyName + @"\",
+                                                        250,
+                                                        false);
+        }
+        if (fupBanner.PostedFile.ContentLength != 0)
+        {
+            comp.CompanyImageBannerURL = uploader.UploadImage(fupBanner.PostedFile,
+                                                        MapPath("~") + @"Images\Company\" +
+                                                        comp.CompanyName + @"\",
+                                                        2000,
+                                                        false);
+        }
         comp.CompanyDescription = txbCompanyText.Text;
         comp.CompanyAcceptWork = chbAcceptWork.Checked;
         comp.CompanySalesPitch = txbSalesPitch.Text;
@@ -54,5 +71,7 @@ public partial class Admin2_Company : System.Web.UI.Page
         comp.CompanyContactEmail = txbContactEmail.Text;
         companyFac.Update(comp);
         Session["Company"] = null;
+        string currentURL = Request.RawUrl;
+        Response.Redirect(currentURL);
     }
 }

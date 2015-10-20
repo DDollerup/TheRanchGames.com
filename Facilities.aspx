@@ -11,7 +11,7 @@
 
     <div class="row-centered">
         <div class="FacilitiesImages col-md-5 col-centered">
-            <asp:Image ID="imgFacImage1" runat="server" />
+            <asp:Image ID="imgFacImage1" runat="server" Width="" />
         </div>
 
         <div class="FacilitiesImages col-md-5 col-centered">

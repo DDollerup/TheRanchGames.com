@@ -23,6 +23,9 @@
         .auto-style5 {
             height: 42px;
         }
+    .auto-style6 {
+        width: 23%;
+    }
     </style>
     <script src="//tinymce.cachefly.net/4.2/tinymce.min.js"></script>
 
@@ -31,7 +34,7 @@
     <%-- Show All Companies --%>
     <table style="width: 100%; border-spacing: 0;">
         <tr>
-            <td style="width: 15%; vertical-align: top;">
+            <td style="vertical-align: top;" class="auto-style6">
                 <asp:Repeater ID="rptEntities" runat="server">
                     <ItemTemplate>
                         <%# DataBinder.Eval(Container.DataItem, "CompanyName") %>
@@ -57,20 +60,29 @@
                         <tr>
                             <td class="auto-style4">Company Logo:<br />
                                 (250x250)</td>
-                            <td class="auto-style5">
-                                <asp:FileUpload ID="fupLogo" runat="server" Width="503px" />
+                            <td class="auto-style5">Logo will be scaled on with to match 250 px
                                 <br />
+                                <input type="file" id="fupLogo" runat="server" />
+                                <br />
+                                Current Logo:
                                 <asp:Label ID="lblCurrentLogo" runat="server"></asp:Label>
                             </td>
                         </tr>
                         <tr>
                             <td class="auto-style1">Company Banner:<br />
                                 (2000x300)</td>
-                            <td>
-                                <asp:FileUpload ID="fupBanner" runat="server" Width="505px" />
+                            <td>Banner will be scaled on with to match 2000 px
                                 <br />
+                                <input type="file" id="fupBanner" runat="server" />
+                                <br />
+                                Current Banner:
                                 <asp:Label ID="lblCurrentBanner" runat="server"></asp:Label>
                             </td>
+                        </tr>
+                        <tr>
+                            <td class="auto-style1">&nbsp;</td>
+                            <td>
+                                &nbsp;</td>
                         </tr>
                         <tr>
                             <td class="auto-style1">Company Description:</td>
@@ -104,7 +116,7 @@
                         </tr>
                         <tr>
                             <td>
-                                <asp:Button ID="btnSave" runat="server" Text="Save" OnClientClick="tinymce.triggerSave(false,true)" OnClick="btnSave_Click"/>
+                                <asp:Button ID="btnSave" runat="server" Text="Save" OnClientClick="tinymce.triggerSave(false,true)" OnClick="btnSave_Click" />
                             </td>
                         </tr>
                     </table>
@@ -117,8 +129,7 @@
         tinymce.init({
             mode: "textareas"
         });
-        function confirmSave()
-        {
+        function confirmSave() {
             return confirm("Save?");
         }
     </script>
