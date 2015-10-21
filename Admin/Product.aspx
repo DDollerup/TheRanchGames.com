@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Admin/Admin.master" AutoEventWireup="true" CodeFile="Product.aspx.cs" Inherits="Admin_Product" %>
+﻿<%@ Page Title="" ValidateRequest="false" Language="C#" MasterPageFile="~/Admin/Admin.master" AutoEventWireup="true" CodeFile="Product.aspx.cs" Inherits="Admin_Product" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
     <style type="text/css">
@@ -32,6 +32,7 @@
 
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="Content" runat="Server">
+    <asp:ScriptManager ID="ScriptManager1" runat="server"></asp:ScriptManager>
     <%-- Show All Companies --%>
     <table style="width: 100%; border-spacing: 0;">
         <tr>
@@ -63,7 +64,8 @@
                             </td>
                         </tr>
                         <tr>
-                            <td class="auto-style4">Product Logo:</td>
+                            <td class="auto-style4">Product Logo:<br />
+                                (250x250)</td>
                             <td class="auto-style5">
                                 <input type="file" id="fupLogo" runat="server" />
                                 <br />
@@ -80,9 +82,39 @@
                                 <asp:TextBox ID="txbText" runat="server" Height="83px" TextMode="MultiLine" Width="500px"></asp:TextBox>
                             </td>
                         </tr>
+
                         <tr>
-                            <td>Youtube/Image</td>
-                            <td>asd
+                            <td>Youtube or Image?</td>
+                            <td>
+                                <asp:UpdatePanel runat="server">
+                                    <ContentTemplate>
+                                        <asp:RadioButtonList AutoPostBack="true" ID="rblSelect" runat="server" RepeatDirection="Horizontal" OnSelectedIndexChanged="rblSelect_SelectedIndexChanged">
+                                            <asp:ListItem>Youtube</asp:ListItem>
+                                            <asp:ListItem>Image</asp:ListItem>
+                                        </asp:RadioButtonList>
+                                    </ContentTemplate>
+                                </asp:UpdatePanel>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td></td>
+                            <td>
+                                <asp:UpdatePanel runat="server">
+                                    <ContentTemplate>
+                                        <asp:Panel runat="server" ID="ShowImage" Visible="false">
+                                            <input type="file" id="fupImage" runat="server" />
+                                        </asp:Panel>
+                                    </ContentTemplate>
+                                </asp:UpdatePanel>
+                                <asp:UpdatePanel runat="server">
+                                    <ContentTemplate>
+                                        <asp:Panel runat="server" ID="ShowYoutube" Visible="false">
+                                            <asp:TextBox ID="txbYoutubeID" runat="server"></asp:TextBox>
+                                            (ONLY YOUTUBE VIDEO ID - E.g. www.youtube.com/watch?v=|iCkYw3cRwLo| < that part)
+                                        </asp:Panel>
+                                    </ContentTemplate>
+                                </asp:UpdatePanel>
                             </td>
                         </tr>
                         <tr>

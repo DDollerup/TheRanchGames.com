@@ -14,5 +14,4 @@ public class Product : AutoTable
     public string ProductImageURL { get; set; }
     public string ProductVisualRep { get; set; }
     public int CompanyID { get; set; }
-    public bool UseImage { get; set; }
 }

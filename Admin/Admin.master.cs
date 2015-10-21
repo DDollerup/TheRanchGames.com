@@ -20,7 +20,6 @@ public partial class Admin2_Admin : System.Web.UI.MasterPage
             if (u.UserRole == 1)
             {
                 AdminPanel.Visible = true;
-                ProductPanel.Visible = true;
             }
             else
             {
