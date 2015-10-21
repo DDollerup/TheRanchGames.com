@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" ValidateRequest="false" Language="C#" MasterPageFile="~/Admin2/Admin.master" AutoEventWireup="true" CodeFile="Team.aspx.cs" Inherits="Admin2_Team" %>
+﻿<%@ Page Title="" ValidateRequest="false" Language="C#" MasterPageFile="~/Admin/Admin.master" AutoEventWireup="true" CodeFile="Team.aspx.cs" Inherits="Admin2_Team" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
     <style type="text/css">

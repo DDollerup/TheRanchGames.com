@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" ValidateRequest="false" Language="C#" MasterPageFile="~/Admin/Admin.master" AutoEventWireup="true" CodeFile="News.aspx.cs" Inherits="Admin2_News" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Admin/Admin.master" AutoEventWireup="true" CodeFile="Product.aspx.cs" Inherits="Admin_Product" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
     <style type="text/css">
@@ -38,18 +38,18 @@
             <td style="vertical-align: top;" class="auto-style6">
                 <asp:Repeater ID="rptEntities" runat="server">
                     <ItemTemplate>
-                        <%# DataBinder.Eval(Container.DataItem, "NewsTitle") %>
-                        <a href='<%# string.Format("News.aspx?ID={0}", DataBinder.Eval(Container.DataItem, "NewsID")) %>'>
+                        <%# DataBinder.Eval(Container.DataItem, "ProductName") %>
+                        <a href='<%# string.Format("Product.aspx?ID={0}", DataBinder.Eval(Container.DataItem, "ProductID")) %>'>
                             <img src="../Images/Admin/update%2016x16.png" />
                         </a>
-                        <a href='<%# string.Format("News.aspx?DID={0}", DataBinder.Eval(Container.DataItem, "NewsID")) %>' onclick="return confirm('Are you sure you want to delete?')">
+                        <a href='<%# string.Format("Product.aspx?DID={0}", DataBinder.Eval(Container.DataItem, "ProductID")) %>' onclick="return confirm('Are you sure you want to delete?')">
                             <img src="../Images/Admin/delete_16x16.gif" />
                         </a>
                         <br />
                     </ItemTemplate>
                 </asp:Repeater>
                 <br />
-                <a href="News.aspx?NewItem=true">
+                <a href="Product.aspx?NewItem=true">
                     <img src="../Images/Admin/add%2016x16.png" />
                 </a>
             </td>
@@ -57,17 +57,17 @@
                 <div runat="server" id="ShowContent" hidden="hidden">
                     <table style="width: 100%;">
                         <tr>
-                            <td class="auto-style2">Sponsor Name:</td>
+                            <td class="auto-style2">Product Name:</td>
                             <td class="auto-style3">
-                                <asp:TextBox ID="txbTitle" runat="server" Width="496px"></asp:TextBox>
+                                <asp:TextBox ID="txbName" runat="server" Width="496px"></asp:TextBox>
                             </td>
                         </tr>
                         <tr>
-                            <td class="auto-style4">Sponsor Logo:</td>
+                            <td class="auto-style4">Product Logo:</td>
                             <td class="auto-style5">
-                                <input type="file" id="fupImage" runat="server" />
+                                <input type="file" id="fupLogo" runat="server" />
                                 <br />
-                                <asp:Image ID="imgImage" runat="server" />
+                                <asp:Image ID="imgLogo" runat="server" />
                             </td>
                         </tr>
                         <tr>
@@ -75,9 +75,14 @@
                             <td>&nbsp;</td>
                         </tr>
                         <tr>
-                            <td class="auto-style1">Link to:</td>
+                            <td class="auto-style1">Product Description:</td>
                             <td>
-                                <asp:TextBox ID="txbLinkTo" runat="server" Width="500px"></asp:TextBox>
+                                <asp:TextBox ID="txbText" runat="server" Height="83px" TextMode="MultiLine" Width="500px"></asp:TextBox>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Youtube/Image</td>
+                            <td>asd
                             </td>
                         </tr>
                         <tr>
@@ -100,3 +105,4 @@
         }
     </script>
 </asp:Content>
+

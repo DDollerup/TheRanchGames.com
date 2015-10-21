@@ -24,12 +24,17 @@
                 <tr>
                     <td style="width: 10%; height: 80vh; background-color: #BADA55; padding-left: 5px; padding-top: 5px; vertical-align: top;">
                         <a href="Default.aspx">Welcome</a><br />
-                        <a href="Home.aspx">Edit Home</a><br />
-                        <a href="News.aspx">Edit News</a><br />
-                        <a href="Team.aspx">Edit Team</a><br />
-                        <a href="Facilities.aspx">Edit Facilities</a><br />
-                        <a href="Company.aspx">Edit Company</a><br />
-                        <a href="Sponsor.aspx">Edit Sponsors</a>
+                        <a href="Product.aspx">Edit Product</a><br />
+                        <asp:Panel runat="server" ID="AdminPanel">
+                            <a href="Home.aspx">Edit Home</a><br />
+                            <a href="News.aspx">Edit News</a><br />
+                            <a href="Team.aspx">Edit Team</a><br />
+                            <a href="Facilities.aspx">Edit Facilities</a><br />
+                            <a href="Company.aspx">Edit Company</a><br />
+                            <a href="Sponsor.aspx">Edit Sponsors</a><br />
+                            <a href="User.aspx">Edit Users</a>
+                        </asp:Panel>
+
                     </td>
                     <td style="width: 90%; height: 80vh; padding-left: 5px; padding-top: 5px; vertical-align: top;">
                         <asp:ContentPlaceHolder ID="Content" runat="server">

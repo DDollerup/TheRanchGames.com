@@ -14,5 +14,18 @@ public partial class Admin2_Admin : System.Web.UI.MasterPage
             Response.Redirect("Login.aspx");
             return;
         }
+        else
+        {
+            User u = Session["user"] as User;
+            if (u.UserRole == 1)
+            {
+                AdminPanel.Visible = true;
+                ProductPanel.Visible = true;
+            }
+            else
+            {
+                AdminPanel.Visible = false;
+            }
+        }
     }
 }

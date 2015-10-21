@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" ValidateRequest="false" Language="C#" MasterPageFile="~/Admin2/Admin.master" AutoEventWireup="true" CodeFile="Facilities.aspx.cs" Inherits="Admin2_Facilities" %>
+﻿<%@ Page Title="" ValidateRequest="false" Language="C#" MasterPageFile="~/Admin/Admin.master" AutoEventWireup="true" CodeFile="Facilities.aspx.cs" Inherits="Admin2_Facilities" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
     <script src="//tinymce.cachefly.net/4.2/tinymce.min.js"></script>
