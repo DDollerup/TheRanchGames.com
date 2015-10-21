@@ -27,7 +27,8 @@
                         <a href="Home.aspx">Edit Home</a><br />
                         <a href="Team.aspx">Edit Team</a><br />
                         <a href="Facilities.aspx">Edit Facilities</a><br />
-                        <a href="Company.aspx">Edit Company</a>
+                        <a href="Company.aspx">Edit Company</a><br />
+                        <a href="Sponsor.aspx">Edit Sponsors</a>
                     </td>
                     <td style="width: 90%; height: 80vh; padding-left: 5px; padding-top: 5px; vertical-align: top;">
                         <asp:ContentPlaceHolder ID="Content" runat="server">

@@ -60,7 +60,7 @@
                         <tr>
                             <td class="auto-style4">Company Logo:<br />
                                 (250x250)</td>
-                            <td class="auto-style5">Logo will be scaled on with to match 250 px
+                            <td class="auto-style5">Logo will be scaled on width to match 250 px
                                 <br />
                                 <input type="file" id="fupLogo" runat="server" />
                                 <br />
@@ -71,7 +71,7 @@
                         <tr>
                             <td class="auto-style1">Company Banner:<br />
                                 (2000x300)</td>
-                            <td>Banner will be scaled on with to match 2000 px
+                            <td>Banner will be scaled on width to match 2000 px
                                 <br />
                                 <input type="file" id="fupBanner" runat="server" />
                                 <br />

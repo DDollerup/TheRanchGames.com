@@ -18,12 +18,8 @@
                     <img src='<%# string.Format("./Images/Team/{0}",DataBinder.Eval(Container.DataItem,"TeamImageURL")) %>' />
                 </div>
                 <h1><%#DataBinder.Eval(Container.DataItem,"TeamMemberName")%></h1>
-                <p>
-                    <%#DataBinder.Eval(Container.DataItem,"TeamMemberDescription").ToString().Replace("\n", "<br />")%>
-                    <br />
-                    <br />
-                    <%#DataBinder.Eval(Container.DataItem,"TeamMemberEmail")%>
-                </p>
+                <%#DataBinder.Eval(Container.DataItem,"TeamMemberDescription")%>
+                <%#DataBinder.Eval(Container.DataItem,"TeamMemberEmail")%>
             </div>
         </ItemTemplate>
     </asp:Repeater>

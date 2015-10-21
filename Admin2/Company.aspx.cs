@@ -21,7 +21,7 @@ public partial class Admin2_Company : System.Web.UI.Page
         if (id != 0)
         {
             ShowCompany.Attributes.Remove("hidden");
-            Session["Company"] = (comp = companyFac.GetEntityByID(id));
+            comp = companyFac.GetEntityByID(id);
             PopulateFields();
 
         }
@@ -44,7 +44,6 @@ public partial class Admin2_Company : System.Web.UI.Page
 
     protected void btnSave_Click(object sender, EventArgs e)
     {
-        this.comp = Session["Company"] as Company;
         Uploader uploader = new Uploader();
 
         comp.CompanyName = txbName.Text;
@@ -70,7 +69,6 @@ public partial class Admin2_Company : System.Web.UI.Page
         comp.CompanyWebsite = txbWebsite.Text;
         comp.CompanyContactEmail = txbContactEmail.Text;
         companyFac.Update(comp);
-        Session["Company"] = null;
         string currentURL = Request.RawUrl;
         Response.Redirect(currentURL);
     }

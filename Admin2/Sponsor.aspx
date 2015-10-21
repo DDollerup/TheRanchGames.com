@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" ValidateRequest="false" Language="C#" MasterPageFile="~/Admin2/Admin.master" AutoEventWireup="true" CodeFile="Team.aspx.cs" Inherits="Admin2_Team" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Admin2/Admin.master" AutoEventWireup="true" CodeFile="Sponsor.aspx.cs" Inherits="Admin2_Sponsor" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
     <style type="text/css">
@@ -29,19 +29,20 @@
         }
     </style>
     <script src="//tinymce.cachefly.net/4.2/tinymce.min.js"></script>
+
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="Content" runat="Server">
-    <%-- Show All Team Members --%>
+    <%-- Show All Companies --%>
     <table style="width: 100%; border-spacing: 0;">
         <tr>
             <td style="vertical-align: top;" class="auto-style6">
                 <asp:Repeater ID="rptEntities" runat="server">
                     <ItemTemplate>
-                        <%# DataBinder.Eval(Container.DataItem, "TeamMemberName") %>
-                        <a href='<%# string.Format("Team.aspx?ID={0}", DataBinder.Eval(Container.DataItem, "TeamMemberID")) %>'>
+                        <%# DataBinder.Eval(Container.DataItem, "Name") %>
+                        <a href='<%# string.Format("Sponsor.aspx?ID={0}", DataBinder.Eval(Container.DataItem, "SponsorID")) %>'>
                             <img src="../Images/Admin/update%2016x16.png" />
                         </a>
-                        <a href='<%# string.Format("Team.aspx?DID={0}", DataBinder.Eval(Container.DataItem, "TeamMemberID")) %>' onclick="return confirm('Are you sure you want to delete?')">
+                        <a href='<%# string.Format("Sponsor.aspx?DID={0}", DataBinder.Eval(Container.DataItem, "SponsorID")) %>' onclick="return confirm('Are you sure you want to delete?')">
                             <img src="../Images/Admin/delete_16x16.gif" />
                         </a>
                         <br />
@@ -52,19 +53,17 @@
                 <div runat="server" id="ShowContent" hidden="hidden">
                     <table style="width: 100%;">
                         <tr>
-                            <td class="auto-style2">Name</td>
+                            <td class="auto-style2">Sponsor Name:</td>
                             <td class="auto-style3">
                                 <asp:TextBox ID="txbName" runat="server" Width="496px"></asp:TextBox>
                             </td>
                         </tr>
                         <tr>
-                            <td class="auto-style4">Portrait:<br />
-                                (250x250)</td>
-                            <td class="auto-style5">Portrait will be scaled on width to match 250 px
+                            <td class="auto-style4">Sponsor Logo:</td>
+                            <td class="auto-style5">
+                                <input type="file" id="fupLogo" runat="server" />
                                 <br />
-                                <input type="file" id="fupPortrait" runat="server" />
-                                <br />
-                                <asp:Image ID="imgPortrait" runat="server" />
+                                <asp:Image ID="imgLogo" runat="server" />
                             </td>
                         </tr>
                         <tr>
@@ -72,15 +71,15 @@
                             <td>&nbsp;</td>
                         </tr>
                         <tr>
-                            <td class="auto-style1">Description:</td>
+                            <td class="auto-style1">Sponsor Description:</td>
                             <td>
-                                <asp:TextBox ID="txbDescription" runat="server" Height="83px" TextMode="MultiLine" Width="500px"></asp:TextBox>
+                                <asp:TextBox ID="txbText" runat="server" Height="83px" TextMode="MultiLine" Width="500px"></asp:TextBox>
                             </td>
                         </tr>
                         <tr>
-                            <td class="auto-style1">Email:</td>
+                            <td class="auto-style1">Link to</td>
                             <td>
-                                <asp:TextBox ID="txbContactEmail" runat="server" Width="499px" TextMode="MultiLine"></asp:TextBox>
+                                <asp:TextBox ID="txbLinkTo" runat="server" Width="500px"></asp:TextBox>
                             </td>
                         </tr>
                         <tr>
@@ -103,4 +102,3 @@
         }
     </script>
 </asp:Content>
-
