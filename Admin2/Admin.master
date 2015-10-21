@@ -25,6 +25,7 @@
                     <td style="width: 10%; height: 80vh; background-color: #BADA55; padding-left: 5px; padding-top: 5px; vertical-align: top;">
                         <a href="Default.aspx">Welcome</a><br />
                         <a href="Home.aspx">Edit Home</a><br />
+                        <a href="Team.aspx">Edit Team</a><br />
                         <a href="Facilities.aspx">Edit Facilities</a><br />
                         <a href="Company.aspx">Edit Company</a>
                     </td>

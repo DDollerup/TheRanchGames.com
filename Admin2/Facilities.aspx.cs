@@ -19,13 +19,16 @@ public partial class Admin2_Facilities : System.Web.UI.Page
 
     protected void FillContent()
     {
-        imgOne.ImageUrl = facPath + facility.ImageOne;
-        imgTwo.ImageUrl = facPath + facility.ImageTwo;
-        imgThree.ImageUrl = facPath + facility.ImageThree;
-        imgFour.ImageUrl = facPath + facility.ImageFour;
+        if (!IsPostBack)
+        {
+            imgOne.ImageUrl = facPath + facility.ImageOne;
+            imgTwo.ImageUrl = facPath + facility.ImageTwo;
+            imgThree.ImageUrl = facPath + facility.ImageThree;
+            imgFour.ImageUrl = facPath + facility.ImageFour;
 
-        txbFacText.Text = facility.Text;
-        txbAddress.Text = facility.Address;
+            txbFacText.Text = facility.Text;
+            txbAddress.Text = facility.Address;
+        }
     }
 
     protected void btnSave_Click(object sender, EventArgs e)
