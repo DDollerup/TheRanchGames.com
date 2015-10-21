@@ -5,97 +5,77 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-public partial class Admin_Team : System.Web.UI.Page
+public partial class Admin2_Team : System.Web.UI.Page
 {
     AutoFactory<TeamMember> teamFac = new AutoFactory<TeamMember>();
-    TeamMember t;
+    TeamMember member;
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        rptTeamMember.DataSource = teamFac.GetAllEntities().OrderBy(x => x.TeamMemberPriority);
-        rptTeamMember.DataBind();
+        rptEntities.DataSource = teamFac.GetAllEntities();
+        rptEntities.DataBind();
 
-        string query = Request.QueryString["TeamMemberID"];
-        if (!string.IsNullOrEmpty(query))
-        {
-            t = teamFac.GetEntityByID(Convert.ToInt32(query));
-            Hide.Attributes["style"] = "visibility: visible;";
-
-            if (!IsPostBack)
-            {
-                txbName.Text = t.TeamMemberName;
-                txbDescription.Text = t.TeamMemberDescription;
-                txbEmail.Text = t.TeamMemberEmail;
-                txbPriority.Text = t.TeamMemberPriority.ToString();
-            }
-            return;
-        }
-        query = Request.QueryString["NewItem"];
-        if (query == "true")
-        {
-            Hide.Attributes["style"] = "visibility: visible;";
-            return;
-        }
-        query = Request.QueryString["DTeamMemberID"];
-        int id = Convert.ToInt32(query);
+        int id = Convert.ToInt32(Request.QueryString["ID"]);
         if (id != 0)
         {
-            Delete(id);
+            ShowContent.Attributes.Remove("hidden");
+            member = teamFac.GetEntityByID(id);
+            PopulateFields();
+
+        }
+        else if (Request.QueryString["NewItem"] == "true")
+        {
+            ShowContent.Attributes.Remove("hidden");
+            member = new TeamMember();
+        }
+        else if (Convert.ToInt32(Request.QueryString["DID"]) > 0)
+        {
+            int deleteID = Convert.ToInt32(Request.QueryString["DID"]);
+
+            teamFac.Delete(deleteID);
+
+            var uri = new Uri(Request.Url.AbsoluteUri);
+            string path = uri.GetLeftPart(UriPartial.Path);
+            Response.Redirect(path);
         }
     }
 
+    void PopulateFields()
+    {
+        if (!IsPostBack)
+        {
+            txbName.Text = member.TeamMemberName;
+            imgPortrait.ImageUrl = @"~\Images\Team\" + member.TeamImageURL;
+            txbDescription.Text = member.TeamMemberDescription;
+            txbContactEmail.Text = member.TeamMemberEmail;
+        }
+    }
 
     protected void btnSave_Click(object sender, EventArgs e)
     {
-        int id = Convert.ToInt32(Request.QueryString["TeamMemberID"]);
-        if (id != 0)
+        member.TeamMemberName = txbName.Text;
+        if (fupPortrait.PostedFile.ContentLength > 0)
         {
-            Update(id);
+            Uploader uploader = new Uploader();
+            member.TeamImageURL = uploader.UploadImage(fupPortrait.PostedFile,
+                                                       MapPath("~") + @"Images\Team\",
+                                                       250,
+                                                       false);
         }
-        else
+        member.TeamMemberDescription = txbDescription.Text;
+        member.TeamMemberEmail = txbContactEmail.Text;
+
+        if (Convert.ToInt32(Request.QueryString["ID"]) > 0)
         {
-            Add();
+            teamFac.Update(member);
         }
-        Response.Redirect("Team.aspx");
-    }
-
-    private void Add()
-    {
-        TeamMember newTeamMember = new TeamMember();
-        newTeamMember.TeamMemberName = txbName.Text;
-        newTeamMember.TeamMemberDescription = txbDescription.Text;
-        newTeamMember.TeamMemberEmail = txbEmail.Text;
-        newTeamMember.TeamMemberPriority = Convert.ToInt32(txbPriority.Text);
-
-        if (fupImageURL.HasFile)
+        else if (Request.QueryString["NewItem"] == "true")
         {
-            newTeamMember.TeamImageURL = fupImageURL.FileName;
-            string imagePath = string.Format(@"{0}Images\Team\{1}", Server.MapPath("~"), fupImageURL.FileName);
-            fupImageURL.SaveAs(imagePath);
+            teamFac.Add(member);
         }
-        teamFac.Add(newTeamMember);
-    }
 
-    private void Update(int id)
-    {
-        t.TeamMemberID = id;
-        t.TeamMemberName = txbName.Text;
-        t.TeamMemberDescription = txbDescription.Text;
-        t.TeamMemberEmail = txbEmail.Text;
-        t.TeamMemberPriority = Convert.ToInt32(txbPriority.Text);
 
-        if (fupImageURL.HasFile)
-        {
-            t.TeamImageURL = fupImageURL.FileName;
-            string imagePath = string.Format(@"{0}Images\Team\{1}", Server.MapPath("~"), fupImageURL.FileName);
-            fupImageURL.SaveAs(imagePath);
-        }
-        teamFac.Update(t);
+        string currentURL = Request.RawUrl;
+        Response.Redirect(currentURL);
     }
-    private void Delete(int id)
-    {
-        teamFac.Delete(id);
-        Response.Redirect("Team.aspx");
-    }
-
 }

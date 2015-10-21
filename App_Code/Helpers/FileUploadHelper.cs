@@ -98,6 +98,10 @@ public class Uploader
                 strFileName = ReplaceChars(strFileName);
             }
 
+            if (!Directory.Exists(outputPath))
+            {
+                Directory.CreateDirectory(outputPath);
+            }
 
             fileToUpload.SaveAs(outputPath + strFileName);
 

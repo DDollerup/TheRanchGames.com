@@ -14,6 +14,7 @@ public partial class Admin2_Facilities : System.Web.UI.Page
     protected void Page_Load(object sender, EventArgs e)
     {
         facility = facilityFac.GetEntityByID(1);
+
         FillContent();
     }
 
@@ -21,6 +22,17 @@ public partial class Admin2_Facilities : System.Web.UI.Page
     {
         if (!IsPostBack)
         {
+            if (facility.FacilityID == 0)
+            {
+                facility = new Facility();
+                facility.Text = "";
+                facility.Address = "";
+                facility.ImageOne = "N/A";
+                facility.ImageTwo = "N/A";
+                facility.ImageThree = "N/A";
+                facility.ImageFour = "N/A";
+                facilityFac.Add(facility);
+            }
             imgOne.ImageUrl = facPath + facility.ImageOne;
             imgTwo.ImageUrl = facPath + facility.ImageTwo;
             imgThree.ImageUrl = facPath + facility.ImageThree;

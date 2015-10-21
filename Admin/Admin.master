@@ -1,94 +1,43 @@
-﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Admin.master.cs" Inherits="Admin_Admin" %>
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Admin.master.cs" Inherits="Admin2_Admin" %>
 
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
+    <link href="Admin.css" rel="stylesheet" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <link href="TextEditor/jquery.cleditor.css" rel="stylesheet" />
+    <script src="TextEditor/jquery.cleditor.js"></script>
     <title></title>
-    <link href="../CSS/Admin.css" rel="stylesheet" />
-    <link href="../CSS/DropDownMenu.css" rel="stylesheet" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
 <body>
-    <div id="ContentWrapper">
-        <form id="form1" runat="server">
-            <div id="NavWrapper">
-                <div class="Padding100LR">
-                    <div id="UserLoginWrapper">
-                        <div style="float: left;">
-                            <asp:Label ID="lblUser" runat="server" Text=""></asp:Label>
-                        </div>
-                        <div style="float: right;">
-                            <asp:LinkButton ID="lbtnLogout" runat="server" OnClick="lbtnLogout_Click">Logout</asp:LinkButton>
-                        </div>
-                    </div>
-                    <asp:PlaceHolder ID="phAdmin" runat="server">
-                        <nav>
-                            <ul>
-                                <li><a href="Default.aspx">Welcome</a></li>
-                                <li><a href="#">Home</a>
-                                    <ul>
-                                        <li><a href="Home.aspx">Edit Home</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="#">News</a>
-                                    <ul>
-                                        <li><a href="News.aspx">Edit News</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="#">Team</a>
-                                    <ul>
-                                        <li><a href="Team.aspx">Edit Team</a></li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <a href="#">Facility</a>
-                                    <ul>
-                                        <li><a href="Facility.aspx">Edit Facility</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="#">Companies</a>
-                                    <ul>
-                                        <li><a href="Company.aspx">Edit Companies</a></li>
-                                    </ul>
-                                </li>
-                                <li><a href="#">Sponsor</a>
-                                    <ul>
-                                        <li><a href="Sponsor.aspx">Edit Sponsors</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </nav>
-
-
-                    </asp:PlaceHolder>
-                    <asp:PlaceHolder ID="phUser" runat="server">
-                        <nav>
-                            <ul>
-                                <li><a href="Default.aspx">Welcome</a></li>
-                                <li><a href="#">Company</a>
-                                    <ul>
-                                        <li><asp:LinkButton ID="lbtnCompany" runat="server"></asp:LinkButton></li>
-                                    </ul>
-                                </li>
-                                <li><a href="#">Product</a>
-                                    <ul>
-                                        <li><a href="Product.aspx">Edit Product</a></li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </nav>
-                    </asp:PlaceHolder>
-                </div>
-            </div>
-            <div class="Padding100LR" id="ContentPlaceholderWrapper">
-                <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
-                </asp:ContentPlaceHolder>
-            </div>
-        </form>
-    </div>
+    <form id="form1" runat="server">
+        <div style="width: 90%; margin-left: auto; margin-right: auto;">
+            <table style="width: 100%; border-spacing: 0;">
+                <tr>
+                    <td colspan="2" style="height: 100px; background-color: #BADA55; padding-left: 5px; padding-top: 5px;">
+                        <h1>Admin - The Ranch Games</h1>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="width: 10%; height: 80vh; background-color: #BADA55; padding-left: 5px; padding-top: 5px; vertical-align: top;">
+                        <a href="Default.aspx">Welcome</a><br />
+                        <a href="Home.aspx">Edit Home</a><br />
+                        <a href="News.aspx">Edit News</a><br />
+                        <a href="Team.aspx">Edit Team</a><br />
+                        <a href="Facilities.aspx">Edit Facilities</a><br />
+                        <a href="Company.aspx">Edit Company</a><br />
+                        <a href="Sponsor.aspx">Edit Sponsors</a>
+                    </td>
+                    <td style="width: 90%; height: 80vh; padding-left: 5px; padding-top: 5px; vertical-align: top;">
+                        <asp:ContentPlaceHolder ID="Content" runat="server">
+                        </asp:ContentPlaceHolder>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </form>
 </body>
 </html>

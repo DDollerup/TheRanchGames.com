@@ -5,99 +5,77 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-public partial class Admin_Sponsor : System.Web.UI.Page
+public partial class Admin2_Sponsor : System.Web.UI.Page
 {
     AutoFactory<Sponsor> sponsorFac = new AutoFactory<Sponsor>();
-    Sponsor s;
+    Sponsor sponsor;
 
     protected void Page_Load(object sender, EventArgs e)
     {
         rptEntities.DataSource = sponsorFac.GetAllEntities();
         rptEntities.DataBind();
 
-        string query = Request.QueryString["ID"];
-        s = sponsorFac.GetEntityByID(Convert.ToInt32(query));
-
-        if (!string.IsNullOrEmpty(query))
-        {
-            Hide.Attributes["style"] = "visibility: visible;";
-
-            if (!IsPostBack)
-            {
-                txbName.Text = s.Name;
-                imgLogo.ImageUrl = @"~/Images/Sponsor/" + s.ImageURL;
-                txbWebsite.Text = s.LinkTo;
-                txbDescription.Text = s.Text;
-            }
-            return;
-        }
-        query = Request.QueryString["NewItem"];
-        if (query == "true")
-        {
-            Hide.Attributes["style"] = "visibility: visible;";
-            return;
-        }
-        query = Request.QueryString["DID"];
-        int id = Convert.ToInt32(query);
+        int id = Convert.ToInt32(Request.QueryString["ID"]);
         if (id != 0)
         {
-            Delete(id);
+            ShowContent.Attributes.Remove("hidden");
+            sponsor = sponsorFac.GetEntityByID(id);
+            PopulateFields();
+
+        }
+        else if (Request.QueryString["NewItem"] == "true")
+        {
+            ShowContent.Attributes.Remove("hidden");
+            sponsor = new Sponsor();
+        }
+        else if (Convert.ToInt32(Request.QueryString["DID"]) > 0)
+        {
+            int deleteID = Convert.ToInt32(Request.QueryString["DID"]);
+
+            sponsorFac.Delete(deleteID);
+
+            var uri = new Uri(Request.Url.AbsoluteUri);
+            string path = uri.GetLeftPart(UriPartial.Path);
+            Response.Redirect(path);
+        }
+    }
+
+    void PopulateFields()
+    {
+        if (!IsPostBack)
+        {
+            txbName.Text = sponsor.Name;
+            imgLogo.ImageUrl = @"~\Images\Sponsor\" + sponsor.ImageURL;
+            txbText.Text = sponsor.Text;
+            txbLinkTo.Text = sponsor.LinkTo;
         }
     }
 
     protected void btnSave_Click(object sender, EventArgs e)
     {
-        int id = Convert.ToInt32(Request.QueryString["ID"]);
-        if (id != 0)
+        sponsor.Name = txbName.Text;
+        if (fupLogo.PostedFile.ContentLength > 0)
         {
-            Update(id);
+            Uploader uploader = new Uploader();
+            sponsor.ImageURL = uploader.UploadImage(fupLogo.PostedFile,
+                                                   MapPath("~") + @"Images\Sponsor\",
+                                                   0,
+                                                   false);
         }
-        else
+        sponsor.Text = txbText.Text;
+        sponsor.LinkTo = txbLinkTo.Text;
+
+        if (Convert.ToInt32(Request.QueryString["ID"]) > 0)
         {
-            Add();
+            sponsorFac.Update(sponsor);
+
         }
-        Response.Redirect("Sponsor.aspx");
-    }
-
-    private void Add()
-    {
-        Sponsor newSponsor = new Sponsor();
-
-        newSponsor.Name = txbName.Text;
-        if (fupLogo.HasFile)
+        else if (Request.QueryString["NewItem"] == "true")
         {
-            newSponsor.ImageURL = fupLogo.FileName;
-            string imagePath = string.Format(@"{0}Images\Sponsor\{1}", Server.MapPath("~"), fupLogo.FileName);
-            fupLogo.SaveAs(imagePath);
+            sponsorFac.Add(sponsor);
         }
 
-        newSponsor.LinkTo = txbWebsite.Text;
-        newSponsor.Text = txbDescription.Text;
-
-        sponsorFac.Add(newSponsor);
-        Response.Redirect("Sponsor.aspx");
+        string currentURL = Request.RawUrl;
+        Response.Redirect(currentURL);
     }
-    private void Update(int id)
-    {
-        s.Name = txbName.Text;
-        if (fupLogo.HasFile)
-        {
-            s.ImageURL = fupLogo.FileName;
-            string imagePath = string.Format(@"{0}Images\Sponsor\{1}", Server.MapPath("~"), fupLogo.FileName);
-            fupLogo.SaveAs(imagePath);
-        }
-
-        s.LinkTo = txbWebsite.Text;
-        s.Text = txbDescription.Text;
-
-        sponsorFac.Update(s);
-        Response.Redirect("Sponsor.aspx");
-    }
-    private void Delete(int id)
-    {
-        sponsorFac.Delete(id);
-        Response.Redirect("Sponsor.aspx");
-    }
-
-
 }

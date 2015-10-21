@@ -5,23 +5,29 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-public partial class Admin_Home : System.Web.UI.Page
+public partial class Admin2_Home : System.Web.UI.Page
 {
     AutoFactory<Home> homeFac = new AutoFactory<Home>();
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (!IsPostBack)
+        Home currentHome = homeFac.GetEntityByID(1);
+        lblGet.Text = currentHome.HomeText;
+
+
+        if (Request.QueryString["action"] == "save")
         {
-            Home currentHome = homeFac.GetEntityByID(1);
-            txbHomeText.Text = currentHome.HomeText;
+            Session["lblText"] = Request.Form["txt"].ToString();
         }
     }
 
-    protected void btnUpdate_Click(object sender, EventArgs e)
+
+
+    protected void btnSave_Click(object sender, EventArgs e)
     {
         Home newHome = new Home();
         newHome.HomeID = 1;
-        newHome.HomeText = txbHomeText.Text;
+        newHome.HomeText = Session["lblText"].ToString();
         homeFac.Update(newHome);
+        Response.Redirect("Home.aspx");
     }
 }

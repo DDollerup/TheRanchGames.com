@@ -5,138 +5,73 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-public partial class Admin_News : System.Web.UI.Page
+public partial class Admin2_News : System.Web.UI.Page
 {
     AutoFactory<News> newsFac = new AutoFactory<News>();
-    News n;
+    News news;
+
     protected void Page_Load(object sender, EventArgs e)
     {
-        rptNews.DataSource = newsFac.GetAllEntities();
-        rptNews.DataBind();
+        rptEntities.DataSource = newsFac.GetAllEntities();
+        rptEntities.DataBind();
 
-        string query = Request.QueryString["NewsID"];
-        if (!string.IsNullOrEmpty(query))
-        {
-            n = newsFac.GetEntityByID(Convert.ToInt32(query));
-            Hide.Attributes["style"] = "visibility: visible;";
-
-            if (!IsPostBack)
-            {
-                txbNewsTitle.Text = n.NewsTitle;
-                lblImageURL.Text = n.ImageURL;
-            }
-            return;
-        }
-        query = Request.QueryString["NewItem"];
-        if (query == "true")
-        {
-            Hide.Attributes["style"] = "visibility: visible;";
-            return;
-        }
-        query = Request.QueryString["DNewsID"];
-        int id = Convert.ToInt32(query);
+        int id = Convert.ToInt32(Request.QueryString["ID"]);
         if (id != 0)
         {
-            DeleteNews(id);
+            ShowContent.Attributes.Remove("hidden");
+            news = newsFac.GetEntityByID(id);
+            PopulateFields();
         }
-    }
-
-    protected void ddlSites_SelectedIndexChanged(object sender, EventArgs e)
-    {
-        string selectedValue = ddlSites.SelectedItem.Text;
-        ddlSelected.Visible = (selectedValue == "Select" ? false : true);
-        if (selectedValue != "Select")
+        else if (Request.QueryString["NewItem"] == "true")
         {
-            switch (selectedValue)
-            {
-                case "Team":
-                    {
-                        AutoFactory<TeamMember> autoFac = new AutoFactory<TeamMember>();
-                        ddlSelected.DataTextField = "TeamMemberName";
-                        ddlSelected.DataValueField = "TeamMemberID";
-                        ddlSelected.DataSource = autoFac.GetAllEntities();
-                    }
-                    break;
-                case "Company":
-                    {
-                        AutoFactory<Company> autoFac = new AutoFactory<Company>();
-                        ddlSelected.DataTextField = "CompanyName";
-                        ddlSelected.DataValueField = "CompanyID";
-                        ddlSelected.DataSource = autoFac.GetAllEntities();
-                    }
-                    break;
-                case "Sponsor":
-                    {
-                        AutoFactory<Sponsor> autoFac = new AutoFactory<Sponsor>();
-                        ddlSelected.Items.Add(new ListItem("Select", "0"));
-                        ddlSelected.DataTextField = "Name";
-                        ddlSelected.DataValueField = "SponsorID";
-                        ddlSelected.DataSource = autoFac.GetAllEntities();
-                    }
-                    break;
-                default:
-                    break;
-            }
+            ShowContent.Attributes.Remove("hidden");
+            news = new News();
+        }
+        else if (Convert.ToInt32(Request.QueryString["DID"]) > 0)
+        {
+            int deleteID = Convert.ToInt32(Request.QueryString["DID"]);
 
-            ddlSelected.DataBind();
-            ddlSelected.Items.Insert(0, new ListItem("Select", "0"));
+            newsFac.Delete(deleteID);
 
-            lblLinkTo.Text = ddlSites.SelectedValue;
+            var uri = new Uri(Request.Url.AbsoluteUri);
+            string path = uri.GetLeftPart(UriPartial.Path);
+            Response.Redirect(path);
         }
     }
 
-    protected void ddlSelected_SelectedIndexChanged(object sender, EventArgs e)
+    void PopulateFields()
     {
-        lblLinkTo.Text += ddlSelected.SelectedValue;
-        lblLinkTo.Visible = true;
+        if (!IsPostBack)
+        {
+            txbTitle.Text = news.NewsTitle;
+            imgImage.ImageUrl = @"~\Images\Sponsor\" + news.ImageURL;
+            txbLinkTo.Text = news.LinkTo;
+        }
     }
 
     protected void btnSave_Click(object sender, EventArgs e)
     {
-        int id = Convert.ToInt32(Request.QueryString["NewsID"]);
-        if (id != 0)
+        news.NewsTitle = txbTitle.Text;
+        if (fupImage.PostedFile.ContentLength > 0)
         {
-            UpdateNews(id);
-        }
-        else
-        {
-            SaveNews();
-        }
-        Response.Redirect("News.aspx");
-    }
+            news.ImageURL = new Uploader().UploadImage(fupImage.PostedFile,
+                                                       MapPath("~") + @"Images\News\",
+                                                       0,
+                                                       false);
 
-    private void UpdateNews(int id)
-    {
-        n.NewsID = id;
-        if (ddlSites.SelectedItem.Text != "Select")
-        {
-            n.LinkTo = lblLinkTo.Text;
         }
-        n.NewsTitle = txbNewsTitle.Text;
-        if (fupImageURL.HasFile)
+        news.LinkTo = txbLinkTo.Text;
+
+        if (Convert.ToInt32(Request.QueryString["ID"]) > 0)
         {
-            n.ImageURL = fupImageURL.FileName;
-            string imagePath = string.Format(@"{0}Images\News\{1}", Server.MapPath("~"), fupImageURL.FileName);
-            fupImageURL.SaveAs(imagePath);
+            newsFac.Update(news);
         }
-        newsFac.Update(n);
-    }
-    private void SaveNews()
-    {
-        News newNews = new News();
-        newNews.LinkTo = lblLinkTo.Text;
-        newNews.NewsTitle = txbNewsTitle.Text;
-        if (fupImageURL.HasFile)
+        else if (Request.QueryString["NewItem"] == "true")
         {
-            newNews.ImageURL = fupImageURL.FileName;
-            string imagePath = string.Format(@"{0}Images\News\{1}", Server.MapPath("~"), fupImageURL.FileName);
-            fupImageURL.SaveAs(imagePath);
+            newsFac.Add(news);
         }
-        newsFac.Add(newNews);
-    }
-    private void DeleteNews(int id)
-    {
-        newsFac.Delete(id);
-        Response.Redirect("News.aspx");
+
+        string currentURL = Request.RawUrl;
+        Response.Redirect(currentURL);
     }
 }

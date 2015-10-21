@@ -1,84 +1,102 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Admin/Admin.master" AutoEventWireup="true" CodeFile="News.aspx.cs" Inherits="Admin_News" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Admin2/Admin.master" AutoEventWireup="true" CodeFile="News.aspx.cs" Inherits="Admin2_News" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="Server">
-</asp:Content>
-<asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
-    <h1>Edit News
-    </h1>
-    <div style="width: 24%; float: left;">
-        <p>
-            News elements
-        </p>
-        <table>
-            <asp:Repeater ID="rptNews" runat="server">
-                <ItemTemplate>
-                    <tr>
-                        <td style="border-bottom: 1px solid gray;">
-                            <%# DataBinder.Eval(Container.DataItem, "NewsTitle") %>
-                            <a href='<%# string.Format("News.aspx?NewsID={0}", DataBinder.Eval(Container.DataItem, "NewsID")) %>'>
-                                <img src="../Images/Admin/update%2016x16.png" />
-                            </a>
-                            <a href='<%# string.Format("News.aspx?DNewsID={0}", DataBinder.Eval(Container.DataItem, "NewsID")) %>' onclick="return confirm('Are you sure you want to delete?')">
-                                <img src="../Images/Admin/delete_16x16.gif" />
-                            </a>
-                        </td>
-                    </tr>
-                </ItemTemplate>
-            </asp:Repeater>
-            <tr>
-                <td>
-                    <a href="News.aspx?NewItem=true">
-                        __
-                        <img src="../Images/Admin/add%2016x16.png" />
-                        __
-                    </a>
-                </td>
-            </tr>
-        </table>
-    </div>
-    <div style="width: 75%; float: left;">
-        <div id="Hide" runat="server" style="visibility: hidden;">
-            <table style="font-size: 22px; vertical-align: text-top;">
-                <tr>
-                    <td>Title
-                    </td>
-                    <td>
-                        <asp:TextBox ID="txbNewsTitle" runat="server" Height="22"></asp:TextBox>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Link To
-                    </td>
-                    <td>
-                        <asp:DropDownList ID="ddlSites" runat="server" Height="22" Width="175" OnSelectedIndexChanged="ddlSites_SelectedIndexChanged" AutoPostBack="true">
-                            <asp:ListItem Text="Select" Value="0" Selected="True"></asp:ListItem>
-                            <asp:ListItem Text="Team" Value="Team.aspx?TeamMemberID="></asp:ListItem>
-                            <asp:ListItem Text="Company" Value="CompaniesIND.aspx?CompanyID="></asp:ListItem>
-                            <asp:ListItem Text="Sponsor" Value="Partners.aspx?PartnerID="></asp:ListItem>
-                        </asp:DropDownList>
-                        <br />
-                        <asp:DropDownList ID="ddlSelected" runat="server" Height="22" Width="175" Visible="false" OnSelectedIndexChanged="ddlSelected_SelectedIndexChanged" AutoPostBack="true">
-                        </asp:DropDownList>
-                        <br />
-                        <asp:Label ID="lblLinkTo" Visible="false" Text="" runat="server" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>Select Image
-                    </td>
-                    <td>
-                        <asp:FileUpload ID="fupImageURL" runat="server" />
-                        <br />
-                        <asp:Label ID="lblImageURL" Visible="true" Text="" runat="server" />
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <asp:Button ID="btnSave" runat="server" Text="Save" OnClick="btnSave_Click" OnClientClick="return confirm('Are you sure you want to update?')" />
-                    </td>
-                </tr>
-            </table>
-        </div>
-    </div>
-</asp:Content>
+    <style type="text/css">
+        .auto-style1 {
+            width: 186px;
+        }
 
+        .auto-style2 {
+            width: 186px;
+            height: 26px;
+        }
+
+        .auto-style3 {
+            height: 26px;
+        }
+
+        .auto-style4 {
+            width: 186px;
+            height: 42px;
+        }
+
+        .auto-style5 {
+            height: 42px;
+        }
+
+        .auto-style6 {
+            width: 23%;
+        }
+    </style>
+    <script src="//tinymce.cachefly.net/4.2/tinymce.min.js"></script>
+
+</asp:Content>
+<asp:Content ID="Content2" ContentPlaceHolderID="Content" runat="Server">
+    <%-- Show All Companies --%>
+    <table style="width: 100%; border-spacing: 0;">
+        <tr>
+            <td style="vertical-align: top;" class="auto-style6">
+                <asp:Repeater ID="rptEntities" runat="server">
+                    <ItemTemplate>
+                        <%# DataBinder.Eval(Container.DataItem, "NewsTitle") %>
+                        <a href='<%# string.Format("News.aspx?ID={0}", DataBinder.Eval(Container.DataItem, "NewsID")) %>'>
+                            <img src="../Images/Admin/update%2016x16.png" />
+                        </a>
+                        <a href='<%# string.Format("News.aspx?DID={0}", DataBinder.Eval(Container.DataItem, "NewsID")) %>' onclick="return confirm('Are you sure you want to delete?')">
+                            <img src="../Images/Admin/delete_16x16.gif" />
+                        </a>
+                        <br />
+                    </ItemTemplate>
+                </asp:Repeater>
+                <br />
+                <a href="News.aspx?NewItem=true">
+                    <img src="../Images/Admin/add%2016x16.png" />
+                </a>
+            </td>
+            <td style="width: 85%; vertical-align: top;">
+                <div runat="server" id="ShowContent" hidden="hidden">
+                    <table style="width: 100%;">
+                        <tr>
+                            <td class="auto-style2">Sponsor Name:</td>
+                            <td class="auto-style3">
+                                <asp:TextBox ID="txbTitle" runat="server" Width="496px"></asp:TextBox>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="auto-style4">Sponsor Logo:</td>
+                            <td class="auto-style5">
+                                <input type="file" id="fupImage" runat="server" />
+                                <br />
+                                <asp:Image ID="imgImage" runat="server" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="auto-style1">&nbsp;</td>
+                            <td>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td class="auto-style1">Link to:</td>
+                            <td>
+                                <asp:TextBox ID="txbLinkTo" runat="server" Width="500px"></asp:TextBox>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <asp:Button ID="btnSave" runat="server" Text="Save" OnClientClick="tinymce.triggerSave(false,true)" OnClick="btnSave_Click" />
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </td>
+        </tr>
+    </table>
+
+    <script type="text/javascript">
+        tinymce.init({
+            mode: "textareas"
+        });
+        function confirmSave() {
+            return confirm("Save?");
+        }
+    </script>
+</asp:Content>
