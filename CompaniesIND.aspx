@@ -39,9 +39,7 @@
                         <div class="CompaniesINDProductGameLogo">
                             <img src='<%# string.Format("./Images/Product/{0}/{1}", DataBinder.Eval(Container.DataItem, "ProductName"), DataBinder.Eval(Container.DataItem, "ProductImageURL")) %>' />
                         </div>
-                        <p>
                             <%# DataBinder.Eval(Container.DataItem, "ProductDescription") %>
-                        </p>
                         <div class="YTPlayerAspectFix">
                             <%# DataBinder.Eval(Container.DataItem, "ProductVisualRep") %>
                         </div>

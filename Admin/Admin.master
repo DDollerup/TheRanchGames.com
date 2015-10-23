@@ -19,6 +19,9 @@
                 <tr>
                     <td colspan="2" style="height: 100px; background-color: #BADA55; padding-left: 5px; padding-top: 5px;">
                         <h1>Admin - The Ranch Games</h1>
+                        <div style="float: right;">
+                            <asp:Button ID="btnLogout" runat="server" Text="Logout" OnClick="btnLogout_Click" />
+                        </div>
                     </td>
                 </tr>
                 <tr>
